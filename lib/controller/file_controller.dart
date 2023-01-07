@@ -1,10 +1,9 @@
-import 'package:universal_io/io.dart';
 import 'package:flutter/material.dart';
-import 'package:inventory_management/file_manager.dart';
-import 'package:flutter/material.dart';
+import 'package:inventory_management/Widget/file_manager.dart';
+
 
 class FileController extends ChangeNotifier {
-  String _text = 'ABC';
+  String _text = '';
 
   String get text => _text;
 
