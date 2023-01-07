@@ -31,9 +31,7 @@ ThemeData _buildTheme(brightness) {
 
   return baseTheme.copyWith(
 //    primarySwatch: Colors.green,
-    appBarTheme: const AppBarTheme(/*backgroundColor: Colors.lightBlue*/),
-    //canvasColor: Colors.black87,
-    //primaryColorLight: const Color(0xFFFFFFFF),
+    appBarTheme: const AppBarTheme(backgroundColor: Colors.lightBlue),
     textTheme: GoogleFonts.montserratTextTheme(baseTheme.textTheme),
   );
 }
@@ -96,7 +94,7 @@ class _DataBlockState extends State<DataBlock> {
   }
 }
 
-//Row containing Data Blocks. displays a detail view of the search results.
+//Row containing Data Blocks. Displays a detail view of the search results.
 class ItemView extends StatefulWidget {
   const ItemView(
       {Key? key,

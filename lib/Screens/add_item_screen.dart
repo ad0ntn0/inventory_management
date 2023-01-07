@@ -55,7 +55,7 @@ class _AddItemState extends State<AddItem> {
             },
           ),
           GButton(
-            borderRadius: BorderRadius.all(Radius.circular(7)),
+            borderRadius: const BorderRadius.all(Radius.circular(7)),
             gap: 8,
             icon: Icons.add_circle,
             text: 'ADD ITEM',

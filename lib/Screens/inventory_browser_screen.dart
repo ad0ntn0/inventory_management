@@ -144,30 +144,24 @@ class _InventoryBrowserState extends State<InventoryBrowser> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
-                            height: 256,
+                            height: 128,
                             width: 512,
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            child: Text(
-                              context.select((FileController controller) =>
-                                  controller.text),
-                              style: const TextStyle(
-                                fontSize: 20,
-                                color: Color(0xFF313133),
+                            child: Center(
+                              child: Text(
+                                context.select((FileController controller) =>
+                                    controller.text),
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  color: Color(0xFF313133),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                        // Text('$_items'),
-                        /*ListView.builder(
-                      itemCount: _items.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                            title: Text(_items[index]),);
-                      },
-                    ),*/
                       ],
                     ),
                   ],

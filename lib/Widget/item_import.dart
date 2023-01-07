@@ -82,7 +82,7 @@ class _ItemImportState extends State<ItemImport> {
                     children: const <Widget>[
                       Icon(Icons.search),
                       Text(
-                        'Add to Inventory',
+                        'Add Item to Inventory',
                         style: TextStyle(
                           fontSize: 18,
                           fontFamily: 'Montserrat',

@@ -1,7 +1,7 @@
-import 'package:flutter/foundation.dart';
-
-import 'package:path_provider/path_provider.dart';
 import 'dart:io';
+
+import 'package:flutter/foundation.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:intl/intl.dart';
 
 
@@ -56,7 +56,7 @@ class FileManager {
   }
 
   Future<String> readTextFile() async {
-    String fileContent = 'abc;def';
+    String fileContent = 'file not found';
 
     File file = await _file;
 
