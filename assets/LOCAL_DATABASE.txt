@@ -1,0 +1,3 @@
+{'Item code': 123456789, 'Item title': 'Blue widget', 'Description': 'Small blue widget for organization', 'Stock': 17, 'Supplier': 'WidgetWorks'},
+{'Item code': 234567890, 'Item title': 'Red gizmo', 'Description': 'Compact red gadget for entertainment', 'Stock': 25, 'Supplier': 'GizmoCorp'},
+{'Item code': 345678901, 'Item title': 'Yellow thingamajig', 'Description': 'Bright yellow tool for decoration', 'Stock': 8, 'Supplier': 'ThingamajigCo'},
