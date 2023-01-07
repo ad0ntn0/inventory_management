@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:intl/intl.dart';
+
 
 
 class FileManager {
@@ -19,33 +19,27 @@ class FileManager {
       Directory directory = await getApplicationDocumentsDirectory();
 
       return directory.path;
-
     } else if (Platform.isMacOS) {
       Directory directory = Directory.systemTemp;
 
       return directory.path;
-
     } else if (Platform.isAndroid) {
       Directory directory = await getApplicationDocumentsDirectory();
 
       return directory.path;
-
     } else if (Platform.isIOS) {
       Directory directory = await getApplicationDocumentsDirectory();
 
       return directory.path;
-
     } else if (Platform.isIOS) {
       Directory directory = await getApplicationDocumentsDirectory();
 
       return directory.path;
-
     } else if (kIsWeb) {
       Directory directory = Directory.systemTemp;
 
       return directory.path;
-
-    } else{
+    } else {
       return '/'; // default return value
     }
   }
@@ -56,7 +50,7 @@ class FileManager {
   }
 
   Future<String> readTextFile() async {
-    String fileContent = 'file not found';
+    String fileContent = '';
 
     File file = await _file;
 
@@ -71,11 +65,24 @@ class FileManager {
     return fileContent;
   }
 
-  Future<String> writeTextFile() async {
-    String text = DateFormat('h:mm:ss').format(DateTime.now());
+  Future<String> appendTextFile(String newEntry) async {
+    String text = '';
 
     File file = await _file;
-    await file.writeAsString(text);
+
+    // Read the contents of the file into a string
+    String fileContent = await file.readAsString();
+
+    // Append the new text to the string
+    fileContent = "$fileContent\n$newEntry";
+
+    // Write the modified string back to the file
+    await file.writeAsString(fileContent);
     return text;
   }
 }
+
+
+
+
+

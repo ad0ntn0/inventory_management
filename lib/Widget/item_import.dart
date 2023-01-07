@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:inventory_management/controller/file_controller.dart';
+import 'package:provider/provider.dart';
+
 
 
 class ItemImport extends StatefulWidget {
@@ -68,26 +71,28 @@ class _ItemImportState extends State<ItemImport> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 0,vertical: 32),
-              child: Container(
+              child: SizedBox(
                 height: 48,
                 width: 256,
-                decoration: BoxDecoration(
-                  color: Colors.lightBlue,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    textStyle: MaterialStateProperty.all(
+                      const TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'Montserrat',
+                      ),
+                    ),
+                    backgroundColor: MaterialStateProperty.all(
+                      Colors.lightBlue,
+                    ),
+                  ),
+                  onPressed: () =>
+                      context.read<FileController>().writeText(),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const <Widget>[
-                      Icon(Icons.search),
-                      Text(
-                        'Add Item to Inventory',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontFamily: 'Montserrat',
-                        ),
-                      ),
+                    children: const [
+                      Icon(Icons.add_circle),
+                      Text('Add Item to Inventory'),
                     ],
                   ),
                 ),

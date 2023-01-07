@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:inventory_management/controller/file_controller.dart';
@@ -14,7 +15,7 @@ class InventoryBrowser extends StatefulWidget {
 
 /*void {
 setState(() {
-_produtcs => context.select((FileController controller) => controller.text),
+_products => context.select((FileController controller) => controller.text),
 });
 
 }*/
@@ -137,32 +138,28 @@ class _InventoryBrowserState extends State<InventoryBrowser> {
                         child: FilterSearch(columnTitle: 'columnTitle'),
                       ),
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height: 128,
-                            width: 512,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Center(
-                              child: Text(
-                                context.select((FileController controller) =>
-                                    controller.text),
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  color: Color(0xFF313133),
-                                ),
+                    SizedBox(
+                      height: 1024,
+                      width: 768,
+                      //color: Colors.lightBlue,
+                      child: ListView.builder(
+                          itemCount: 25,
+                          itemBuilder: (BuildContext context, int index) {
+                            return ListTile(
+                              minVerticalPadding: 5,
+                              //contentPadding: const EdgeInsets.symmetric(vertical: 32),
+                              //tileColor: Colors.lightblue,
+                              leading: Text("$index"),
+                              trailing: const Text(
+                                "GFG",
+                                style: TextStyle(
+                                    color: Colors.green, fontSize: 15),
                               ),
-                            ),
-                          ),
-                        ),
-                      ],
+                              title: Text("Item $index"),
+                              subtitle: const Text('Description: asdljkadsf hgvhonbeoiuh nasduh' ' | ''12341234'),
+
+                            );
+                          }),
                     ),
                   ],
                 ),
@@ -186,8 +183,7 @@ class _InventoryBrowserState extends State<InventoryBrowser> {
             gap: 8,
             icon: Icons.search,
             text: 'ITEM BROWSER',
-            onPressed: () {
-            },
+            onPressed: () {},
           ),
           GButton(
             borderRadius: const BorderRadius.all(Radius.circular(7)),
@@ -254,8 +250,7 @@ class _FilterSearchState extends State<FilterSearch> {
                   Colors.lightBlue,
                 ),
               ),
-              onPressed: () =>
-                  context.read<FileController>().writeText(),
+              onPressed: () => context.read<FileController>().writeText(),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: const [
