@@ -1,10 +1,9 @@
-
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:inventory_management/controller/file_controller.dart';
-import 'package:provider/provider.dart';
-import 'package:inventory_management/Widget/search_bar.dart';
+import 'package:inventory_management/Screens/login_screen.dart';
+import 'package:inventory_management/Widget/browser_filter.dart';
+import 'package:inventory_management/Widget/browser_list.dart';
 import 'package:inventory_management/Screens/add_item_screen.dart';
+
 
 class InventoryBrowser extends StatefulWidget {
   const InventoryBrowser({super.key});
@@ -13,162 +12,154 @@ class InventoryBrowser extends StatefulWidget {
   _InventoryBrowserState createState() => _InventoryBrowserState();
 }
 
-/*void {
-setState(() {
-_products => context.select((FileController controller) => controller.text),
-});
-
-}*/
 class _InventoryBrowserState extends State<InventoryBrowser> {
   int currentPageIndex = 0;
 
-//  final List<Map<String, dynamic>> _products;
+  late TextEditingController searchController;
 
-/*  List<String> _items = [];
-
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is removed from the
+    // widget tree.
+    searchController.dispose();
+    super.dispose();
+  }
+/*
   @override
   void initState() {
     super.initState();
-    _getTextFileItems();
-  }
-
-  Future<void> _getTextFileItems() async {
-    String fileContent = (await FileManager().readTextFile()) as String;
-    setState(() {
-      _items = fileContent.split('\n');
-    });
+    // Start listening to changes.
+    searchController.addListener(BrowserFilter().runFilter());
   }*/
 
-  //String get products => context.read<FileController>().writeText() [
-  /*{
-      'Item code': 12345,
-      'Item title': 'Blue widget',
-      'Description': 'Small blue widget for organization',
-      'Stock': 17,
-      'Supplier': 'WidgetWorks'
-    },
-    {
-      'Item code': 27865,
-      'Item title': 'Red gizmo',
-      'Description': 'Compact red gadget for entertainment',
-      'Stock': 25,
-      'Supplier': 'GizmoCorp'
-    },
-    {
-      'Item code': 312345,
-      'Item title': 'Yellow thingamajig',
-      'Description': 'Bright yellow tool for decoration',
-      'Stock': 8,
-      'Supplier': 'ThingamajigCo'
-    },
-    {
-      'Item code': 312345,
-      'Item title': 'Yellow thingamajig',
-      'Description': 'Bright yellow tool for decoration',
-      'Stock': 8,
-      'Supplier': 'ThingamajigCo'
-    },
-    {
-      'Item code': 312345,
-      'Item title': 'Yellow thingamajig',
-      'Description': 'Bright yellow tool for decoration',
-      'Stock': 8,
-      'Supplier': 'ThingamajigCo'
-    },
-    {
-      'Item code': 312345,
-      'Item title': 'Yellow thingamajig',
-      'Description': 'Bright yellow tool for decoration',
-      'Stock': 8,
-      'Supplier': 'ThingamajigCo'
-    },
-    {
-      'Item code': 312345,
-      'Item title': 'Yellow thingamajig',
-      'Description': 'Bright yellow tool for decoration',
-      'Stock': 8,
-      'Supplier': 'ThingamajigCo'
-    },
-    {
-      'Item code': 13145,
-      'Item title': 'Yellow thingamajig',
-      'Description': 'Bright yellow tool for decoration',
-      'Stock': 8,
-      'Supplier': 'ThingamajigCo'
-    },*/
-//  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Inventory Browser",
+          'Inventory Browser',
         ),
         actions: [
-          IconButton(
-            onPressed: () {
-              // method to show the search bar
-              showSearch(
-                  context: context,
-                  // delegate to customize the search bar
-                  delegate: CustomSearchDelegate());
-            },
-            icon: const Icon(Icons.search),
-          )
+          PopupMenuButton(
+              icon: const Icon(Icons.menu),
+              // icon: Icon(Icons.book)
+              itemBuilder: (context) {
+                return [
+                  PopupMenuItem<int>(
+                    value: 0,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.only(right: 8.0),
+                          child: Icon(Icons.account_circle),
+                        ),
+                        Text("My Account"),
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem<int>(
+                    value: 1,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.only(right: 8.0),
+                          child: Icon(Icons.settings),
+                        ),
+                        Text("Settings"),
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem<int>(
+                    value: 2,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.only(right: 8.0),
+                          child: Icon(Icons.logout),
+                        ),
+                        Text("Logout"),
+                      ],
+                    ),
+                  ),
+                ];
+              },
+              onSelected: (value) {
+                if (value == 0) {
+                  print("My account menu is selected.");
+                } else if (value == 1) {
+                  print("Settings menu is selected.");
+                } else if (value == 2) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginPage(),
+                    ),
+                  );
+                }
+              }),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(48, 48, 48, 48),
-        child: Wrap(
-          clipBehavior: Clip.antiAlias,
-          direction: Axis.horizontal,
-          children: [
-            Wrap(
-              clipBehavior: Clip.antiAlias,
-              direction: Axis.vertical,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(48, 48, 48, 48),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                ButtonBar(
+                  children: [
+                    const Text('Add Item', style: TextStyle(fontSize: 18),),
+                    IconButton(iconSize: 48,
+                        tooltip: 'Add Item',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AddItem(),
+                            ),
+                          );
+                        },
+                        icon: const Icon(Icons.add_circle, color: Colors.lightBlue)),
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        child: FilterSearch(columnTitle: 'columnTitle'),
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: TextField(
+                        controller: searchController,
+                        onChanged: (value) => BrowserFilter().runFilter,
+                        decoration: const InputDecoration(
+                            labelText: 'Search',
+                            suffixIcon: Icon(Icons.search)),
                       ),
                     ),
-                    SizedBox(
-                      height: 1024,
-                      width: 768,
-                      //color: Colors.lightBlue,
-                      child: ListView.builder(
-                          itemCount: 25,
-                          itemBuilder: (BuildContext context, int index) {
-                            return ListTile(
-                              minVerticalPadding: 5,
-                              //contentPadding: const EdgeInsets.symmetric(vertical: 32),
-                              //tileColor: Colors.lightblue,
-                              leading: Text("$index"),
-                              trailing: const Text(
-                                "GFG",
-                                style: TextStyle(
-                                    color: Colors.green, fontSize: 15),
-                              ),
-                              title: Text("Item $index"),
-                              subtitle: const Text('Description: asdljkadsf hgvhonbeoiuh nasduh' ' | ''12341234'),
-
-                            );
-                          }),
+                    /*Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      child: FilterSearch(
+                        columnTitle: 'columnTitle',
+                        onPressed: (value) => _runFilter(value),
+                      ),
                     ),
+                  ),*/
+// Building the List of Search results
+                     BrowserList(key: ValueKey(BrowserFilter().foundItems)),
                   ],
                 ),
               ],
             ),
-          ],
+          ),
         ),
       ),
-      bottomNavigationBar: GNav(
+      /*bottomNavigationBar: GNav(
         backgroundColor: const Color(0xFF313133),
         selectedIndex: currentPageIndex,
         padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 48),
@@ -200,7 +191,7 @@ class _InventoryBrowserState extends State<InventoryBrowser> {
             },
           ),
         ],
-      ),
+      ),*/
     );
   }
 }
@@ -213,7 +204,8 @@ class FilterSearch extends StatefulWidget {
       this.width,
       this.prefixText,
       this.labelText,
-      this.icon})
+      this.icon,
+      required this.onPressed})
       : super(key: key);
 
   final columnTitle;
@@ -221,6 +213,7 @@ class FilterSearch extends StatefulWidget {
   final prefixText;
   final labelText;
   final icon;
+  final onPressed;
 
   @override
   State<FilterSearch> createState() => _FilterSearchState();
@@ -250,7 +243,7 @@ class _FilterSearchState extends State<FilterSearch> {
                   Colors.lightBlue,
                 ),
               ),
-              onPressed: () => context.read<FileController>().writeText(),
+              onPressed: widget.onPressed,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: const [
@@ -302,17 +295,19 @@ class _FilterSearchState extends State<FilterSearch> {
   }
 }
 
+
+
 // Filter Widget
 class Filter extends StatefulWidget {
-  const Filter(
-      {Key? key,
-      required this.columnTitle,
-      this.width,
-      this.prefixText,
-      this.labelText,
-      this.hintText,
-      this.icon})
-      : super(key: key);
+  const Filter({
+    Key? key,
+    required this.columnTitle,
+    this.width,
+    this.prefixText,
+    this.labelText,
+    this.hintText,
+    this.icon,
+  }) : super(key: key);
 
   final columnTitle;
   final width;
@@ -333,7 +328,7 @@ class _FilterState extends State<Filter> {
       child: SizedBox(
         width: 196,
         height: 60,
-        child: TextFormField(
+        child: TextField(
           decoration: InputDecoration(
             border: const UnderlineInputBorder(),
             suffixStyle: const TextStyle(fontSize: 14),

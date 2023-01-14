@@ -1,6 +1,22 @@
 import 'package:flutter/material.dart';
 
 
+// AppBar implementation; Copy&Paste to AppBar widget to use
+/*actions: [
+          IconButton(
+            onPressed: () {
+              // method to show the search bar
+              showSearch(
+                  context: context,
+                  // delegate to customize the search bar
+                  delegate: CustomSearchDelegate());
+            },
+            icon: const Icon(Icons.search),
+          )
+        ],*/
+
+
+
 //Search Bar feature
 class CustomSearchDelegate extends SearchDelegate {
 // Demo list to show querying

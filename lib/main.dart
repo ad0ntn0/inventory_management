@@ -1,26 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:inventory_management/controller/file_controller.dart';
+import 'package:inventory_management/Screens/login_screen.dart';
+import 'package:inventory_management/Widget/browser_search_field.dart';
 import 'package:provider/provider.dart';
-import 'package:inventory_management/Screens/inventory_browser_screen.dart';
 
-void main() => runApp(
-      MultiProvider(
-        providers: [ChangeNotifierProvider(create: (_) => FileController())],
-        child: const MyApp(),
-      ),
-    );
+import 'package:inventory_management/Widget/item_provider.dart';
+import 'package:inventory_management/Widget/browser_filter.dart';
+
+
+void main() {
+  runApp(
+    MultiProvider(providers: [
+
+      ChangeNotifierProvider(create: (_) => ItemProvider()),
+      ChangeNotifierProvider(create: (_) => BrowserFilter()),
+      ChangeNotifierProvider(create: (_) => BrowserSearchField()),
+    ], child: const MyApp()),
+  );
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    context.read<FileController>().readText();
     return MaterialApp(
       title: 'Inventory Manager',
       theme: _buildTheme(Brightness.dark),
-      home: const InventoryBrowser(),
+      home: const LoginPage(),
+      //home:  const InventoryBrowser(),
+      //home:  const InventoryBrowser(),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -30,16 +39,13 @@ ThemeData _buildTheme(brightness) {
   var baseTheme = ThemeData(brightness: brightness);
 
   return baseTheme.copyWith(
-//    primarySwatch: Colors.green,
-    appBarTheme: const AppBarTheme(backgroundColor: Colors.lightBlue),
-    textTheme: GoogleFonts.montserratTextTheme(baseTheme.textTheme),
-  );
+      //primarySwatch: Colors.green,
+      //appBarTheme: const AppBarTheme(backgroundColor: Colors.lightBlue),
+      textTheme: GoogleFonts.montserratTextTheme(baseTheme.textTheme),
+      primaryColor: Colors.lightBlue
+      // primaryTextTheme: TextTheme(),
+      );
 }
-
-
-
-
-
 
 /*
 
@@ -169,4 +175,3 @@ class _ItemViewState extends State<ItemView> {
 }
 
 */
-
